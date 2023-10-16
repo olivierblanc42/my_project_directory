@@ -26,6 +26,11 @@ class Companion
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $DateOfBirth = null;
 
+    #[ORM\ManyToOne(inversedBy: 'companions')]
+    private ?User $user = null;
+
+ 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,4 +83,18 @@ class Companion
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+  
 }

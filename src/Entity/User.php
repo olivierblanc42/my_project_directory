@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -48,6 +50,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $DateOfBirth = null;
+
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'users')]
+    private Collection $events;
+
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    private ?Adress $adress = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Companion::class)]
+    private Collection $companions;
+
+ 
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+        $this->companions = new ArrayCollection();
+    }
 
 
  
@@ -193,6 +212,74 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        $this->events->removeElement($event);
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): static
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Companion>
+     */
+    public function getCompanions(): Collection
+    {
+        return $this->companions;
+    }
+
+    public function addCompanion(Companion $companion): static
+    {
+        if (!$this->companions->contains($companion)) {
+            $this->companions->add($companion);
+            $companion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompanion(Companion $companion): static
+    {
+        if ($this->companions->removeElement($companion)) {
+            // set the owning side to null (unless already changed)
+            if ($companion->getUser() === $this) {
+                $companion->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+ 
 
 
 
