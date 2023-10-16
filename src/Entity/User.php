@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +33,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $pseudo = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $Idresseur = null;
+
+    #[ORM\Column(length: 15)]
+    private ?string $PhoneNumber = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $FirstName = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $DateOfBirth = null;
+
+
+ 
 
     public function getId(): ?int
     {
@@ -114,4 +133,68 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->DateOfBirth;
+    }
+
+    public function setDateOfBirth(?\DateTimeInterface $DateOfBirth): static
+    {
+        $this->DateOfBirth = $DateOfBirth;
+
+        return $this;
+    }
+
+    public function getIdresseur(): ?int
+    {
+        return $this->Idresseur;
+    }
+
+    public function setIdresseur(?int $Idresseur): static
+    {
+        $this->Idresseur = $Idresseur;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->PhoneNumber;
+    }
+
+    public function setPhoneNumber(string $PhoneNumber): static
+    {
+        $this->PhoneNumber = $PhoneNumber;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->FirstName;
+    }
+
+    public function setFirstName(string $FirstName): static
+    {
+        $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+
+
+
 }
