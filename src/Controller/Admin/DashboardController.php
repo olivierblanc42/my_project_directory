@@ -2,12 +2,16 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Adress;
+use App\Entity\Companion;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+
 
 class DashboardController extends AbstractDashboardController
 {
@@ -48,7 +52,26 @@ class DashboardController extends AbstractDashboardController
 
         ]);
 
+        yield MenuItem::subMenu('Infos Adress', 'fa-solid fa-location-dot')->setSubItems([
+            MenuItem::linkToCrud('Adress', 'fas fa-eye', Adress::class)
+                ->setController(AdressCrudController::class),
+
+        ]);
+
+        yield MenuItem::subMenu('Infos Companion', 'fa-solid fa-user-plus')->setSubItems([
+            MenuItem::linkToCrud('Companion', 'fas fa-eye', Companion::class)
+                ->setController(CompanionCrudController::class),
+
+        ]);       yield MenuItem::subMenu('Infos Event', 'fa-regular fa-calendar-days')->setSubItems([
+            MenuItem::linkToCrud('Event', 'fas fa-eye', Event::class)
+                ->setController(EventCrudController::class),
+
+        ]);
     }
+
+
+
+
 
     public function configureDashboard(): Dashboard
     {

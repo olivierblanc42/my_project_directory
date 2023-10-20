@@ -19,5 +19,17 @@
 {% endblock %}
 {% block body %}
 <h1 class="text-primary">home</h1>
+ </div>
+
+
+                        {% if app.user %}
+                      <p>ok</p>
+                        {% else%}
+
+                           <p>pas ok</p>
+
+                        {% endif %}
+
+        </div>
 {% endblock %}
 
