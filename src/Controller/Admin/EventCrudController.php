@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Event;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -23,8 +24,9 @@ class EventCrudController extends AbstractCrudController
         yield IdField::new('id')->hideOnForm();
         yield TextField::new('name','Nom');
         yield DateField::new('eventDate','Date de l\'événement');
-        yield CollectionField::new('users')->showEntryLabel('name');
-
+        yield AssociationField::new('users')
+        ->autocomplete()
+        ->setFormTypeOption('by_reference', false);
          
     }
     

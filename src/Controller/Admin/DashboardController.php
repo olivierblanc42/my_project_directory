@@ -46,24 +46,24 @@ class DashboardController extends AbstractDashboardController
 
 
 
-        yield MenuItem::subMenu('Infos Users', 'fas fa-users')->setSubItems([
-            MenuItem::linkToCrud('User', 'fas fa-eye', User::class)
+        yield MenuItem::subMenu('Infos utilisateurs', 'fas fa-users')->setSubItems([
+            MenuItem::linkToCrud('Utilisateurs', 'fas fa-eye', User::class)
                 ->setController(UserCrudController::class),
 
         ]);
 
-        yield MenuItem::subMenu('Infos Adress', 'fa-solid fa-location-dot')->setSubItems([
-            MenuItem::linkToCrud('Adress', 'fas fa-eye', Adress::class)
+        yield MenuItem::subMenu('Infos adresse', 'fa-solid fa-location-dot')->setSubItems([
+            MenuItem::linkToCrud('Adresses', 'fas fa-eye', Adress::class)
                 ->setController(AdressCrudController::class),
 
         ]);
 
         yield MenuItem::subMenu('Infos Companion', 'fa-solid fa-user-plus')->setSubItems([
-            MenuItem::linkToCrud('Companion', 'fas fa-eye', Companion::class)
+            MenuItem::linkToCrud('Companions', 'fas fa-eye', Companion::class)
                 ->setController(CompanionCrudController::class),
 
-        ]);       yield MenuItem::subMenu('Infos Event', 'fa-regular fa-calendar-days')->setSubItems([
-            MenuItem::linkToCrud('Event', 'fas fa-eye', Event::class)
+        ]);       yield MenuItem::subMenu('Infos événements', 'fa-regular fa-calendar-days')->setSubItems([
+            MenuItem::linkToCrud('Événements', 'fas fa-eye', Event::class)
                 ->setController(EventCrudController::class),
 
         ]);

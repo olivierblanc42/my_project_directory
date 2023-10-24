@@ -47,8 +47,12 @@ class UserCrudController extends AbstractCrudController
             yield DateField::new('dateOfBirth');
             yield AssociationField::new('adress');
             
-            // yield CollectionField::new('companions');
-            // yield CollectionField::new('events')->showEntryLabel('name');
+            yield AssociationField::new('companions')
+            ->autocomplete()
+            ->setFormTypeOption('by_reference', false);
+            yield AssociationField::new('events')
+            ->autocomplete()
+            ->setFormTypeOption('by_reference', false);
         
         }
    
